@@ -1,0 +1,9 @@
+package br.com.orbenet;
+
+public class Certificate {
+	
+	String description;
+	
+	
+
+}

@@ -1,0 +1,20 @@
+INDEX VERSION 1.131+C:\plataformas\java\workspace\operbots\.metadata\.plugins\org.eclipse.jdt.core
+3426278744.index
+3160077221.index
+3907311103.index
+3927496509.index
+567793766.index
+3004047050.index
+89159703.index
+2791704381.index
+770052491.index
+1529771047.index
+1590372226.index
+1493461807.index
+3503328726.index
+2654593978.index
+2564947593.index
+4231938562.index
+3642994182.index
+254213039.index
+1666087304.index

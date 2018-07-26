@@ -1,0 +1,21 @@
+package br.com.orbenet;
+
+import java.security.cert.X509CRL;
+
+public class Principal {
+
+	public static void main(String[] args) {
+		
+		try {
+			//URL: 		
+			
+			String url = "";
+			X509CRL crl = CertificateUtil.downloadCRLFromWeb(url);
+		}
+		catch(Exception exc) {
+			System.out.println("Erro: " + exc.getMessage());
+		}
+
+	}
+
+}

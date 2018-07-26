@@ -1,0 +1,129 @@
+package br.com.orbenet;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.cert.CRLException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateExpiredException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509CRL;
+import java.security.cert.X509Certificate;
+import java.util.Scanner;
+
+import javax.net.ssl.HttpsURLConnection;
+
+public class CertificateUtil {
+
+	public static X509CRL downloadCRLFromWeb(String crlURL)
+			throws MalformedURLException, IOException, CertificateException, CRLException {
+		URL url = new URL(crlURL);
+		InputStream crlStream = url.openStream();
+		try {
+			CertificateFactory cf = CertificateFactory.getInstance("X.509");
+			X509CRL crl = (X509CRL) cf.generateCRL(crlStream);
+			return crl;
+		} finally {
+			crlStream.close();
+		}
+	}
+
+	public static void testConnectionTo(String aURL) throws Exception {
+		URL destinationURL = new URL(aURL);
+		HttpsURLConnection conn = (HttpsURLConnection) destinationURL.openConnection();
+		conn.connect();
+
+		getResponseURLConnection(conn);
+
+		// testHttpsURLConnection(conn);
+
+		// testHttpsURL(destinationURL);
+
+		// getCertificates(conn);
+
+		conn.disconnect();
+	}
+
+	public static void testHttpsURL(URL url) {
+		if (url != null) {
+			try {
+				System.out.println("url Protocol: " + url.getProtocol());
+				System.out.println("url Host: " + url.getHost());
+				System.out.println("url Port: " + url.getPort());
+				System.out.println("url Path: " + url.getPath());
+				System.out.println("url Protocol: " + url.getProtocol());
+				System.out.println("url Default Port: " + url.getDefaultPort());
+				System.out.println("url Query: " + url.getQuery());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+	}
+
+	public static void getCertificates(HttpsURLConnection conn) {
+		try {
+			Certificate[] certs = conn.getServerCertificates();
+			System.out.println("nb = " + certs.length);
+
+			for (Certificate cert : certs) {
+				System.out.println("");
+				System.out.println("################################################################");
+				System.out.println("");
+				System.out.println("Certificate is: " + cert);
+				if (cert instanceof X509Certificate) {
+					try {
+						((X509Certificate) cert).checkValidity();
+						System.out.println("Certificate is active for current date");
+						System.out.println("Cert: " + cert.getEncoded());
+
+						System.out.println("SubjectDN: " + ((X509Certificate) cert).getSubjectDN().getName());
+					} catch (CertificateExpiredException cee) {
+						System.out.println("Certificate is expired");
+					}
+				} else {
+					System.err.println("Unknown certificate type: " + cert);
+				}
+				break;
+			}
+		} catch (Exception exc) {
+			System.out.println("Erro do getCertificates: " + exc.getMessage());
+		}
+	}
+
+	public static void getResponseURLConnection(HttpsURLConnection conn) {
+		if (conn != null) {
+			try {
+				InputStream in = conn.getInputStream();
+				Scanner scanner = new Scanner(in);
+				scanner.useDelimiter("\\A");
+
+				boolean hasInput = scanner.hasNext();
+				String response = null;
+				if (hasInput) {
+					response = scanner.next();
+				}
+				scanner.close();
+				System.out.println("Response: " + response);
+			} catch (Exception exc) {
+				System.out.println("EXC: " + exc);
+			}
+		}
+	}
+
+	public static void testHttpsURLConnection(HttpsURLConnection conn) {
+		if (conn != null) {
+			try {
+				System.out.println("ContentType: " + conn.getContentType());
+				System.out.println("Content Encoding: " + conn.getContentEncoding());
+				System.out.println("Response: " + conn.getResponseMessage());
+				System.out.println("Response Code: " + conn.getResponseCode());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+	}
+}

@@ -1,0 +1,25 @@
+package br.com.orbenet;
+
+import java.security.cert.X509CRL;
+
+public class Principal {
+
+	public static void main(String[] args) {
+		
+		try {
+			//URL: 		
+			
+			String url = "https://ww3.itau.com.br/imobline/novolayout/envioproposta/fichaproposta.aspx";
+			X509CRL crl = CertificateUtil.downloadCRLFromWeb(url);
+			
+			if(crl != null) {
+				System.out.println(crl.toString());
+			}
+		}
+		catch(Exception exc) {
+			System.out.println("Erro: " + exc.getMessage());
+		}
+
+	}
+
+}

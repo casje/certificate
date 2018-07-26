@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.security.cert.X509CRL"/>
+<fullyQualifiedTypeName name="java.net.MalformedURLException"/>
+<fullyQualifiedTypeName name="javax.net.ssl.HttpsURLConnection"/>
+<fullyQualifiedTypeName name="java.security.Certificate"/>
+<fullyQualifiedTypeName name="java.security.cert.Certificate"/>
+<fullyQualifiedTypeName name="java.security.cert.CertificateExpiredException"/>
+<fullyQualifiedTypeName name="br.com.orbenet.CertificateUtil"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+</qualifiedTypeNameHistroy>
